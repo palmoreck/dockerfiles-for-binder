@@ -11,6 +11,6 @@ RUN chown -R ${NB_UID} ${HOME}
 USER ${NB_USER}
 
 COPY run.sh ${HOME}
-RUN ["chmod", "+x", "${HOME}/run.sh"]
+RUN ["chmod", "+x", "/home/jovyan/run.sh"]
 
-ENTRYPOINT ["/${HOME}/run.sh"]
+ENTRYPOINT ["/home/jovyan/run.sh"]
