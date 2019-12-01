@@ -15,13 +15,19 @@ docker build $BUILD_DIR --force-rm -t $REPO_URL:$JUPYTERLAB_VERSION
 Run:
 
 ```
-docker run -v $(pwd):/datos --name jupyterlab-local -p 8888:8888 -d $REPO_URL:$JUPYTERLAB_VERSION
+docker run -v $(pwd):/datos --name jupyterlab-c-kernel-local -p 8888:8888 -d $REPO_URL:$JUPYTERLAB_VERSION
 ```
 
 or:
 
 ```
-docker run --rm -v $(pwd):/datos --name jupyterlab-local -p 8888:8888 -d $REPO_URL:$JUPYTERLAB_VERSION
+docker run --rm -v $(pwd):/datos --name jupyterlab-c-kernel-local -p 8888:8888 -d $REPO_URL:$JUPYTERLAB_VERSION
+```
+
+Exec:
+
+```
+docker exec -d -u=jovyan jupyterlab-c-kernel-local /usr/local/bin/jupyter lab --ip=0.0.0.0 --no-browser
 ```
 
 ## jupyter lab running at localhost:8888 , password: qwerty
@@ -29,20 +35,20 @@ docker run --rm -v $(pwd):/datos --name jupyterlab-local -p 8888:8888 -d $REPO_U
 (not necessary) Enter to docker container with:
 
 ```
-docker exec -it -u=miuser jupyterlab-local bash
+docker exec -it -u=jovyan jupyterlab-c-kernel-local bash
 ```
 
 Stop:
 
 ```
-docker stop jupyterlab-local
+docker stop jupyterlab-c-kernel-local
 ```
 
 Delete (if `--rm` wasn't used):
 
 
 ```
-docker rm jupyterlab-local
+docker rm jupyterlab-c-kernel-local
 ```
 
 
