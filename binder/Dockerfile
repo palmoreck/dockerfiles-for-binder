@@ -15,5 +15,5 @@ RUN ["sudo", "chmod", "+x", "/home/jovyan/run.sh"]
 
 ENTRYPOINT ["/home/jovyan/run.sh"]
 
-CMD ["sh", "-c", "jupyter notebook --port=8888 --ip=0.0.0.0 --no-browser"]
+#CMD ["sh", "-c", "jupyter notebook --port=8888 --ip=0.0.0.0 --no-browser"]
 
