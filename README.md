@@ -1,4 +1,4 @@
-Set:
+Instructions to build docker image. Set:
 
 ```
 JUPYTERLAB_VERSION=1.1.0
