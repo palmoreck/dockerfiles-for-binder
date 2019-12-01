@@ -10,10 +10,8 @@ RUN chown -R ${NB_UID} ${HOME}
 
 USER ${NB_USER}
 
-#COPY run.sh ${HOME}
 RUN ["sudo", "chmod", "+x", "/home/jovyan/run.sh"]
 
 ENTRYPOINT ["/home/jovyan/run.sh"]
 
-#CMD ["sh", "-c", "jupyter notebook --port=8888 --ip=0.0.0.0 --no-browser"]
 
