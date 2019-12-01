@@ -21,13 +21,13 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD5
 
 RUN groupadd ${USER_BINDER}
 RUN useradd ${USER_BINDER} -g ${USER_BINDER} -m -s /bin/bash
-RUN echo '${USER_BINDER} ALL=(ALL:ALL) NOPASSWD:ALL' | (EDITOR='tee -a' visudo)
-RUN echo '${USER_BINDER}:qwerty' | chpasswd
+RUN echo 'jovyan ALL=(ALL:ALL) NOPASSWD:ALL' | (EDITOR='tee -a' visudo)
+RUN echo 'jovyan:qwerty' | chpasswd
 RUN pip3.6 install jupyter jupyterlab==$JUPYTERLAB_VERSION --upgrade
 USER ${USER_BINDER}
-RUN jupyter notebook --generate-config && sed -i "s/#c.NotebookApp.password = .*/c.NotebookApp.password = u'sha1:115e429a919f:21911277af52f3e7a8b59380804140d9ef3e2380'/" /home/miuser/.jupyter/jupyter_notebook_config.py
+RUN jupyter notebook --generate-config && sed -i "s/#c.NotebookApp.password = .*/c.NotebookApp.password = u'sha1:115e429a919f:21911277af52f3e7a8b59380804140d9ef3e2380'/" /home/${USER_BINDER}/.jupyter/jupyter_notebook_config.py
 
-RUN sudo chmod gou+w /usr/local/lib/R/site-library && \
+RUN sudo chmod gou+wrx -R /usr/local/lib/R/site-library && \
     sudo R -e 'install.packages(c("repr", "IRdisplay", "evaluate", "crayon", "pbdZMQ", "devtools", "uuid", "digest"), lib="/usr/local/lib/R/site-library/")' && \
     R -e 'devtools::install_github("IRkernel/IRkernel")' && \
     sudo R -e 'IRkernel::installspec(user=FALSE)'
