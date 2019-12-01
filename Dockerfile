@@ -10,5 +10,4 @@ RUN chown -R ${NB_UID} ${HOME}
 
 USER ${NB_USER}
 
-RUN cd ${HOME} && git clone https://github.com/ITAM-DS/analisis-numerico-computo-cientifico.git
 
