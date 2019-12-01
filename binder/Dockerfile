@@ -10,4 +10,7 @@ RUN chown -R ${NB_UID} ${HOME}
 
 USER ${NB_USER}
 
+COPY run.sh ${HOME}
+RUN ["chmod", "+x", "${HOME}/run.sh"]
 
+ENTRYPOINT ["/${HOME}/RUN.sh"]
