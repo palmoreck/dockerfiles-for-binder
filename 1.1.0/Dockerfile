@@ -15,8 +15,8 @@ RUN apt-get update && apt-get install -y \
             python3-setuptools \
             nodejs && pip3 install --upgrade pip
 
-RUN groupadd $USER_BINDER
-RUN useradd $USER_BINDER -g $USER_BINDER -m -s /bin/bash
+RUN groupadd ${USER_BINDER}
+RUN useradd ${USER_BINDER} -g ${USER_BINDER} -m -s /bin/bash
 RUN echo '${USER_BINDER} ALL=(ALL:ALL) NOPASSWD:ALL' | (EDITOR='tee -a' visudo)
 RUN echo '${USER_BINDER}:qwerty' | chpasswd
 RUN pip3 install jupyter jupyterlab==$JUPYTERLAB_VERSION --upgrade
