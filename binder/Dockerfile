@@ -1,4 +1,3 @@
-FROM palmoreck/jupyterlab_binder_test:1.1.0
 ARG NB_USER=jovyan
 ARG NB_UID=1000
 ENV USER ${NB_USER}
