@@ -1,5 +1,5 @@
 # dockerfiles-for-binder
-Dockerfiles to build docker images to use them with binder
+Dockerfiles to build docker images for using them with binder. See: [jupyterhub/binderhub](https://github.com/jupyterhub/binderhub)
 
 Select a branch for a particular Dockerfile
 
