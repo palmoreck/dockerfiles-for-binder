@@ -2,9 +2,9 @@ Instructions to build docker image. Set:
 
 ```
 JUPYTERLAB_VERSION=1.1.0
-REPO_URL=palmoreck/jupyterlab_binder
+REPO_URL=palmoreck/jupyterlab_numerical_binder
 BUILD_DIR=/home/user/midir
-CONTAINER_NAME=jupyterlab-local
+CONTAINER_NAME=jupyterlab-numerical
 ```
 
 Build:
