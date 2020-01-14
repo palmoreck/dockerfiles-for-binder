@@ -21,6 +21,10 @@ RUN echo 'jovyan ALL=(ALL:ALL) NOPASSWD:ALL' | (EDITOR='tee -a' visudo)
 RUN echo 'jovyan:qwerty' | chpasswd
 RUN pip3 install jupyter jupyterlab==$JUPYTERLAB_VERSION --upgrade
 USER ${USER_BINDER}
+RUN pip3 install --user numpy matplotlib scipy pandas xarray --upgrade
+RUN pip3 install --user dask distributed bokeh --upgrade
+RUN pip3 install --user seaborn --upgrade
+
 RUN jupyter notebook --generate-config && sed -i "s/#c.NotebookApp.password = .*/c.NotebookApp.password = u'sha1:115e429a919f:21911277af52f3e7a8b59380804140d9ef3e2380'/" /home/jovyan/.jupyter/jupyter_notebook_config.py
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
