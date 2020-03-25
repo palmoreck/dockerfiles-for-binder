@@ -34,6 +34,6 @@ RUN jupyter notebook --generate-config && sed -i "s/#c.NotebookApp.password = .*
 
 ENV HOME /home/${USER_BINDER}
 
-COPY run.sh ${HOME}
+COPY run_installations.sh ${HOME}
 
-RUN sudo chmod +x ${HOME}/run.sh
+RUN sudo chmod +x ${HOME}/run_installations.sh
