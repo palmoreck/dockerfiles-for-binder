@@ -2,7 +2,7 @@ Instructions to build docker image. Set:
 
 ```
 JUPYTERLAB_VERSION=1.1.0
-REPO_URL=palmoreck/jupyterlab_openblas_binder_test
+REPO_URL=palmoreck/jupyterlab_openblas_binder_test_2
 BUILD_DIR=docker-files-for-binder/1.1.0/
 CONTAINER_NAME=jupyterlab-openblas
 ```
