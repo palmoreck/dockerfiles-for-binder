@@ -16,3 +16,5 @@ Select a branch for a particular Dockerfile
 [jupyterlab_openblas](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab_openblas)
 
 [jupyterlab_r_kernel_openblas](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab_r_kernel_openblas)
+
+[jupyterlab_prope_r_kernel_tidyverse](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab_prope_r_kernel_tidyerse)
