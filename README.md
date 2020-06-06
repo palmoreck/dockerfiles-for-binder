@@ -1,18 +1,59 @@
-# dockerfiles-for-binder
-Dockerfiles to build docker images for using them with binder. See: [jupyterhub/binderhub](https://github.com/jupyterhub/binderhub)
+Instructions to build docker image. Set:
 
-Select a branch for a particular Dockerfile
+```
+JUPYTERLAB_VERSION=2.1.4
+REPO_URL=palmoreck/jupyterlab_prope_r_kernel_tidyverse_binder_test
+DIR=/home/<user>/<midir>/
+BUILD_DIR=$DIR/2.1.4/
+CONTAINER_NAME=jupyterlab-prope-r-kernel-tidyverse
+```
 
-[jupyterlab](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab)
+Clone:
 
-[jupyterlab_c_kernel](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab_c_kernel)
+```
+git clone --single-branch -b jupyterlab_prope_r_kernel_tidyverse https://github.com/palmoreck/dockerfiles-for-binder.git $DIR
+```
 
-[jupyterlab_r_kernel](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab_r_kernel)
+Build:
 
-[jupyterlab_r_kernel_tidyverse](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab_r_kernel_tidyverse)
+```
+docker build $BUILD_DIR --force-rm -t $REPO_URL:$JUPYTERLAB_VERSION
+```
 
-[jupyterlab_numerical](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab_numerical)
+Run:
 
-[jupyterlab_openblas](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab_openblas)
+```
+docker run -v $(pwd):/datos --name ${CONTAINER_NAME} -p 8888:8888 -d $REPO_URL:$JUPYTERLAB_VERSION \
+/usr/local/bin/jupyter lab --ip=0.0.0.0 --no-browser
+```
 
-[jupyterlab_r_kernel_openblas](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab_r_kernel_openblas)
+or:
+
+```
+docker run --rm -v $(pwd):/datos --name ${CONTAINER_NAME} -p 8888:8888 -d $REPO_URL:$JUPYTERLAB_VERSION \
+/usr/local/bin/jupyter lab --ip=0.0.0.0 --no-browser
+```
+
+
+## jupyter lab running at localhost:8888 , password: qwerty
+
+(not necessary) Enter to docker container with:
+
+```
+docker exec -it -u=jovyan ${CONTAINER_NAME} bash
+```
+
+Stop:
+
+```
+docker stop ${CONTAINER_NAME}
+```
+
+Delete (if `--rm` wasn't used):
+
+
+```
+docker rm ${CONTAINER_NAME}
+```
+
+
