@@ -19,5 +19,4 @@ Select a branch for a particular Dockerfile
 
 [jupyterlab_prope_r_kernel_tidyverse](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab_prope_r_kernel_tidyerse)
 
-
-[jupyterlab_opt_c_r_kernel_tidyverse](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab_opt_c_r_kernel_tidyverse)
+[jupyterlab_optimizacion](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab_optimizacion)
