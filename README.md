@@ -58,7 +58,9 @@ docker rm ${CONTAINER_NAME}
 
 ## Changes for `palmoreck/jupyterlab_optimizacion_binder_test_for_pdf:2.1.4`
 
-Via binder is possible to build pdf using functionality of [jupyter book pdf](https://jupyterbook.org/advanced/pdf.html). Then a new docker image was tagged:
+Via binder is possible to build pdf using functionality of [jupyter book pdf](https://jupyterbook.org/advanced/pdf.html). A new docker image was tagged and pushed to dockerhub:
+
+Set:
 
 ```
 JUPYTERLAB_VERSION=2.1.4
@@ -66,17 +68,17 @@ REPO_URL=palmoreck/jupyterlab_optimizacion_binder_test_for_pdf
 CONTAINER_NAME=jupyterlab-optimizacion-binder
 ```
 
-Then 
+Then (already need to have built `palmoreck/jupyterlab_optimizacion_binder_test:2.1.4`)
 
 ```
-docker run --rm -v $(pwd):/datos --name ${CONTAINER_NAME} -p 8888:8888 -d $REPO_URL:$JUPYTERLAB_VERSION \
+docker run --rm -v $(pwd):/datos --name ${CONTAINER_NAME} -p 8888:8888 -d palmoreck/jupyterlab_optimizacion_binder_test:2.1.4 \
 /usr/local/bin/jupyter lab --ip=0.0.0.0 --no-browser
 ```
 
-And install some dependencies and make some changes manually (this could be incorporated in [2.1.4/Dockerfile](2.1.4/Dockerfile)):
+And install some dependencies and make some changes manually (next lines could be incorporated in [2.1.4/Dockerfile](2.1.4/Dockerfile)):
 
 ```
-sudo apt install ghostscript #para comprimir pdf
+sudo apt install ghostscript #to compress pdf
 
 pip3 install --user pyppeteer
 ```
@@ -125,7 +127,7 @@ Pdf can be built with:
 jb build . --builder pdfhtml
 ```
 
-And if compress pdf is wanted then use:
+And if a pdf compressed is wanted then use:
 
 ```
 gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dDownsampleColorImages=true -dColorImageResolution=150 \
