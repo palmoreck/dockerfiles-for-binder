@@ -1,22 +1,138 @@
-# dockerfiles-for-binder
-Dockerfiles to build docker images for using them with binder. See: [jupyterhub/binderhub](https://github.com/jupyterhub/binderhub)
+Instructions to build docker image. Set:
 
-Select a branch for a particular Dockerfile
+```
+JUPYTERLAB_VERSION=3.0.0
+REPO_URL=palmoreck/jupyterlab_optimizacion_2_binder_test
+DIR=/home/<user>/<midir>/
+BUILD_DIR=$DIR/3.0.0/
+CONTAINER_NAME=jupyterlab-optimizacion-2-binder
+```
 
-[jupyterlab](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab)
+Clone:
 
-[jupyterlab_c_kernel](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab_c_kernel)
+```
+git clone --single-branch -b jupyterlab_optimizacion_2_binder_test https://github.com/palmoreck/dockerfiles-for-binder.git $DIR
+```
 
-[jupyterlab_r_kernel](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab_r_kernel)
+Build:
 
-[jupyterlab_r_kernel_tidyverse](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab_r_kernel_tidyverse)
+```
+docker build $BUILD_DIR --force-rm -t $REPO_URL:$JUPYTERLAB_VERSION
+```
 
-[jupyterlab_numerical](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab_numerical)
+Run:
 
-[jupyterlab_openblas](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab_openblas)
+```
+docker run -v $(pwd):/datos --name ${CONTAINER_NAME} -p 8888:8888 -d $REPO_URL:$JUPYTERLAB_VERSION \
+/usr/local/bin/jupyter lab --ip=0.0.0.0 --no-browser
+```
 
-[jupyterlab_r_kernel_openblas](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab_r_kernel_openblas)
+or:
 
-[jupyterlab_prope_r_kernel_tidyverse](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab_prope_r_kernel_tidyerse)
+```
+docker run --rm -v $(pwd):/datos --name ${CONTAINER_NAME} -p 8888:8888 -d $REPO_URL:$JUPYTERLAB_VERSION \
+/usr/local/bin/jupyter lab --ip=0.0.0.0 --no-browser
+```
 
-[jupyterlab_optimizacion](https://github.com/palmoreck/dockerfiles-for-binder/tree/jupyterlab_optimizacion)
+
+## jupyter lab running at localhost:8888 , password: qwerty
+
+(not necessary) Enter to docker container with:
+
+```
+docker exec -it -u=jovyan ${CONTAINER_NAME} bash
+```
+
+Stop:
+
+```
+docker stop ${CONTAINER_NAME}
+```
+
+Delete (if `--rm` wasn't used):
+
+
+```
+docker rm ${CONTAINER_NAME}
+```
+
+## Changes for `palmoreck/jupyterlab_optimizacion_2_binder_test_for_pdf:3.0.0`
+
+Via binder is possible to build pdf using functionality of [jupyter book pdf](https://jupyterbook.org/advanced/pdf.html). A new docker image was tagged and pushed to dockerhub:
+
+Set:
+
+```
+JUPYTERLAB_VERSION=3.0.0
+REPO_URL=palmoreck/jupyterlab_optimizacion_2_binder_test_for_pdf
+CONTAINER_NAME=jupyterlab-optimizacion-binder
+```
+
+Then (already need to have built `palmoreck/jupyterlab_optimizacion_2_binder_test:3.0.0`)
+
+```
+docker run --rm -v $(pwd):/datos --name ${CONTAINER_NAME} -p 8888:8888 -d palmoreck/jupyterlab_optimizacion_2_binder_test:3.0.0 \
+/usr/local/bin/jupyter lab --ip=0.0.0.0 --no-browser
+```
+
+And install some dependencies and make some changes manually (next lines could be incorporated in [3.0.0/Dockerfile](3.0.0/Dockerfile)):
+
+```
+sudo apt install ghostscript #to compress pdf
+
+pip3 install pyppeteer
+```
+
+Change to root:
+
+```
+sudo su
+```
+
+Using instructions from [pyppeteer-browser-closed-unexpectedly-in-aws-lambda](https://stackoverflow.com/questions/61780476/pyppeteer-browser-closed-unexpectedly-in-aws-lambda)
+
+```
+curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
+echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list
+apt update -y && apt install -y google-chrome-stable
+```
+
+Change file: `/home/jovyan/.local/lib/python3.7/site-packages/jupyter_book/pdf.py` in line: `browser=...` to:
+
+```
+browser = await launch(executablePath='/usr/bin/google-chrome-stable', headless=True, args=['--no-sandbox'])
+```
+
+Change file: `/home/jovyan/.local/lib/python3.7/site-packages/pyppeteer/page.py` in line: `30000 #milliseconds` to:
+
+```
+self._defaultNavigationTimeout = 30000000000  # milliseconds
+```
+
+Commit and tag docker image:
+
+```
+docker commit ${CONTAINER_NAME} palmoreck/jupyterlab_optimizacion_2_binder_test_for_pdf:3.0.0
+```
+
+Push:
+
+```
+docker push palmoreck/jupyterlab_optimizacion_2_binder_test_for_pdf:3.0.0
+```
+
+Pdf can be built with:
+
+```
+jb build . --builder pdfhtml
+```
+
+And if a pdf compressed is wanted then use:
+
+```
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dDownsampleColorImages=true -dColorImageResolution=150 \
+-dNOPAUSE -dQUIET -dBATCH -sOutputFile=libro_optimizacion_compressed.pdf libro_optimizacion.pdf
+```
+
+according to: [how-can-i-reduce-the-file-size-of-a-scanned-pdf-file](https://askubuntu.com/questions/113544/how-can-i-reduce-the-file-size-of-a-scanned-pdf-file)
+
