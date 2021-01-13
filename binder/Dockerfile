@@ -1,4 +1,4 @@
-FROM palmoreck/jupyterlab_optimizacion_2_binder_test_for_pdf:3.0.0
+FROM palmoreck/jupyterlab_optimizacion_2_binder_for_pdf:3.0.0
 ARG NB_USER=jovyan
 ARG NB_UID=1000
 ENV USER ${NB_USER}

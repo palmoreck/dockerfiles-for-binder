@@ -56,7 +56,7 @@ Delete (if `--rm` wasn't used):
 docker rm ${CONTAINER_NAME}
 ```
 
-## Changes for `palmoreck/jupyterlab_optimizacion_2_binder_test_for_pdf:3.0.0`
+## Changes for `palmoreck/jupyterlab_optimizacion_2_binder_for_pdf:3.0.0`
 
 Via binder is possible to build pdf using functionality of [jupyter book pdf](https://jupyterbook.org/advanced/pdf.html). A new docker image was tagged and pushed to dockerhub:
 
@@ -64,7 +64,7 @@ Set:
 
 ```
 JUPYTERLAB_VERSION=3.0.0
-REPO_URL=palmoreck/jupyterlab_optimizacion_2_binder_test_for_pdf
+REPO_URL=palmoreck/jupyterlab_optimizacion_2_binder_for_pdf
 CONTAINER_NAME=jupyterlab-optimizacion-binder
 ```
 
@@ -112,13 +112,13 @@ self._defaultNavigationTimeout = 30000000000  # milliseconds
 Commit and tag docker image:
 
 ```
-docker commit ${CONTAINER_NAME} palmoreck/jupyterlab_optimizacion_2_binder_test_for_pdf:3.0.0
+docker commit ${CONTAINER_NAME} palmoreck/jupyterlab_optimizacion_2_binder_for_pdf:3.0.0
 ```
 
 Push:
 
 ```
-docker push palmoreck/jupyterlab_optimizacion_2_binder_test_for_pdf:3.0.0
+docker push palmoreck/jupyterlab_optimizacion_2_binder_for_pdf:3.0.0
 ```
 
 Pdf can be built with:
