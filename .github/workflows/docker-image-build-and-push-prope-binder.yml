@@ -38,4 +38,4 @@ jobs:
           file: jupyterlab/prope_r_kernel_tidyverse/3.0.16/Dockerfile #path in repo to Dockerfile
           platforms: linux/amd64
           push: true
-          tags: palmoreck/jupyterlab_prope_r_kernel_tidyverse_binder:3.0.16
+          tags: palmoreck/jupyterlab_prope_r_kernel_tidyverse_binder_test:3.0.16
