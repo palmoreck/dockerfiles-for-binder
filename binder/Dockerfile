@@ -1,4 +1,4 @@
-FROM palmoreck/jupyterlab_prope_r_kernel_tidyverse_binder:2.1.4
+FROM palmoreck/jupyterlab_prope_r_kernel_tidyverse_binder_test:3.0.16
 ARG NB_USER=jovyan
 ARG NB_UID=1000
 ENV USER ${NB_USER}
