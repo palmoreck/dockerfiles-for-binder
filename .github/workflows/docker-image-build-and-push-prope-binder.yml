@@ -9,7 +9,7 @@ on:
     branches: 
     - jupyterlab_prope_r_kernel_tidyverse
     paths:
-    - 3.0.16/Dockerfile #path in repo to Dockerfile
+    - README.md #path in repo to Dockerfile
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
