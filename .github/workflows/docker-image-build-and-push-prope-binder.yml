@@ -6,7 +6,8 @@ name: prope-binder-docker-image-build-and-push
 # events but only for the main branch
 on:
   push:
-    branches: [ jupyterlab_prope_r_kernel_tidyverse ]
+    branches: 
+    - jupyterlab_prope_r_kernel_tidyverse
     paths:
     - 3.0.16/Dockerfile #path in repo to Dockerfile
 
