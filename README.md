@@ -56,4 +56,20 @@ Delete (if `--rm` wasn't used):
 docker rm ${CONTAINER_NAME}
 ```
 
+Pdf can be built with:
+
+```
+docker run --rm -v $(pwd):/datos --name ${CONTAINER_NAME} -p 8888:8888 -d $REPO_URL:$JUPYTERLAB_VERSION /usr/local/bin/jupyter lab --ip=0.0.0.0 --no-browser
+#then go to repo cloned path and:
+jupyter-nbconvert --to webpdf <name of notebook>.ipynb
+```
+
+And if a pdf compressed is wanted then use:
+
+```
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dDownsampleColorImages=true -dColorImageResolution=150 \
+-dNOPAUSE -dQUIET -dBATCH -sOutputFile=<name of notebook compressed>.pdf <name of notebook>.pdf
+```
+
+according to: [how-can-i-reduce-the-file-size-of-a-scanned-pdf-file](https://askubuntu.com/questions/113544/how-can-i-reduce-the-file-size-of-a-scanned-pdf-file)
 

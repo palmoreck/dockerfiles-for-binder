@@ -8,10 +8,10 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV DEB_BUILD_DEPS="python3-dev python3-pip python3-setuptools software-properties-common dirmngr"
 ENV DEB_PACKAGES="sudo nano less git curl wget htop ghostscript pandoc texlive-full"
 #ghostscript to compress pdf
-ENV PIP_PACKAGES="numpy scipy matplotlib pandas plotly seaborn sympy"
+ENV PIP_PACKAGES="numpy scipy matplotlib pandas plotly seaborn sympy pyppeteer"
 
 ENV R_KEY="E298A3A825C0D65DFD57CBB651716619E084DAB9"
-ENV R_DEB_BUILD_DEPS="r-base libssl-dev libxml2-dev libcurl4-openssl-dev"
+ENV R_DEB_BUILD_DEPS="focal-cran40 r-base libssl-dev libxml2-dev libcurl4-openssl-dev"
 ENV R_SITE_LIBRARY="/usr/local/lib/R/site-library"
 ENV R_PACKAGES="var=\"repr IRdisplay evaluate crayon pbdZMQ devtools uuid digest prob tidyverse\""
 
@@ -46,6 +46,9 @@ USER ${USER_BINDER}
 RUN jupyter notebook --generate-config && sed -i "s/# c.NotebookApp.password = .*/c.NotebookApp.password = u'sha1:115e429a919f:21911277af52f3e7a8b59380804140d9ef3e2380'/" ~/.jupyter/jupyter_notebook_config.py
 
 RUN pip3 install $PIP_PACKAGES
+#install chromium and allow no-sandbox flag, see: https://github.com/jupyter/nbconvert/issues/1434
+RUN python3 -c 'import pyppeteer; pyppeteer.chromium_downloader.download_chromium()' && \
+    sed -i "/'--password-store=basic',/a \ \ \ \ '--no-sandbox'," ~/.local/lib/python3.8/site-packages/pyppeteer/launcher.py
 
 #c kernel
 RUN sudo chmod gou+wrx -R /usr/local/share/jupyter/kernels/
