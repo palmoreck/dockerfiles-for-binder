@@ -1,7 +1,7 @@
 Instructions to build docker image. Set:
 
 ```
-JUPYTERLAB_VERSION=3.0.0
+JUPYTERLAB_VERSION=3.1.0
 REPO_URL=palmoreck/jupyterlab_optimizacion_2_binder_test
 DIR=/home/<user>/<midir>/
 BUILD_DIR=$DIR/3.0.0/
@@ -59,6 +59,8 @@ docker rm ${CONTAINER_NAME}
 Pdf can be built with:
 
 ```
+docker run --rm -v $(pwd):/datos --name ${CONTAINER_NAME} -p 8888:8888 -d $REPO_URL:$JUPYTERLAB_VERSION /usr/local/bin/jupyter lab --ip=0.0.0.0 --no-browser
+#then go to repo cloned path and:
 jb build . --builder pdfhtml
 ```
 
