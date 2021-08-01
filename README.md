@@ -2,7 +2,7 @@ Instructions to build docker image. Set:
 
 ```
 JUPYTERLAB_VERSION=3.1.0
-REPO_URL=palmoreck/jupyterlab_prope_r_kernel_tidyverse_binder
+REPO_URL=palmoreck/jupyterlab_prope_r_kernel_tidyverse_binder_test
 DIR=/home/<user>/<midir>/
 BUILD_DIR=$DIR/3.1.0/
 CONTAINER_NAME=jupyterlab-prope-r-kernel-tidyverse
