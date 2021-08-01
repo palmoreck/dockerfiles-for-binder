@@ -1,4 +1,3 @@
-#jedi was downgraded to jedi==0.17.2, see: https://github.com/jupyter/notebook/issues/2435
 FROM ubuntu:20.04
 
 ENV TIMEZONE America/Mexico_City
@@ -7,8 +6,9 @@ ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEB_BUILD_DEPS="build-essential python3-dev python3-pip python3-setuptools software-properties-common libgit2-dev dirmngr libgmp3-dev libmpfr-dev"
-ENV DEB_PACKAGES="sudo nano less time git curl wget htop graphviz gfortran libopenblas-dev ghostscript pandoc texlive-full" #ghostscript to compress pdf
-ENV PIP_PACKAGES="numpy scipy matplotlib pandas seaborn sympy cvxpy pytest dask distributed bokeh jupyter-book networkx ortools line_profiler memory_profiler psutil guppy3 cython numba graphviz jedi==0.17.2 pyppeteer"
+ENV DEB_PACKAGES="sudo nano less time git curl wget htop graphviz gfortran libopenblas-dev ghostscript" 
+#ghostscript to compress pdf
+ENV PIP_PACKAGES="numpy scipy matplotlib pandas seaborn sympy cvxpy pytest dask distributed bokeh jupyter-book networkx ortools line_profiler memory_profiler psutil guppy3 cython numba graphviz pyppeteer"
 
 ENV R_KEY="E298A3A825C0D65DFD57CBB651716619E084DAB9"
 ENV R_DEB_BUILD_DEPS="focal-cran40 r-base libssl-dev libxml2-dev libcurl4-openssl-dev"
@@ -23,7 +23,7 @@ RUN apt-get update && export $DEBIAN_FRONTEND && \
 RUN apt-get update && apt-get install -y $DEB_BUILD_DEPS $DEB_PACKAGES && pip3 install --upgrade pip
 
 # Install nodejs deps
-RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - && apt-get install -y nodejs
+RUN curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash - && apt-get install -y nodejs
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $R_KEY && \
     add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" && \
@@ -40,7 +40,7 @@ RUN groupadd ${USER_BINDER}
 RUN useradd ${USER_BINDER} -g ${USER_BINDER} -m -s /bin/bash
 RUN echo 'jovyan ALL=(ALL:ALL) NOPASSWD:ALL' | (EDITOR='tee -a' visudo)
 RUN echo 'jovyan:qwerty' | chpasswd
-RUN pip3 install jupyter jupyterlab==$JUPYTERLAB_VERSION --upgrade
+RUN pip3 install jupyter jupyterlab==$JUPYTERLAB_VERSION
 USER ${USER_BINDER}
 
 RUN jupyter notebook --generate-config && sed -i "s/# c.NotebookApp.password = .*/c.NotebookApp.password = u'sha1:115e429a919f:21911277af52f3e7a8b59380804140d9ef3e2380'/" ~/.jupyter/jupyter_notebook_config.py
@@ -50,8 +50,7 @@ RUN pip3 install $PIP_PACKAGES
 #make some changes according to https://github.com/palmoreck/dockerfiles-for-binder/tree/cc3c524e46ba11f9dbf8895ec2c02c335579ec48#changes-for-palmoreckjupyterlab_optimizacion_2_binder_test_for_pdf300
 RUN python_version=$(ls ~/.local/lib/|grep python) && \
     sed -i 's/browser = await launch(args=\["--no-sandbox"\])/browser = await launch(executablePath="\/usr\/bin\/google-chrome-stable", headless=True, args=\["--no-sandbox"\])/;' ~/.local/lib/$python_version/site-packages/jupyter_book/pdf.py && \
-    sed -i "s/self._defaultNavigationTimeout = 30000/\
-    self._defaultNavigationTimeout = 30000000000/" ~/.local/lib/$python_version/site-packages/pyppeteer/page.py
+    sed -i "s/self._defaultNavigationTimeout = 30000/self._defaultNavigationTimeout = 30000000000/" ~/.local/lib/$python_version/site-packages/pyppeteer/page.py
 
 #c kernel
 RUN sudo chmod gou+wrx -R /usr/local/share/jupyter/kernels/
