@@ -50,6 +50,11 @@ RUN pip3 install $PIP_PACKAGES
 RUN python3 -c 'import pyppeteer; pyppeteer.chromium_downloader.download_chromium()' && \
     sed -i "/'--password-store=basic',/a \ \ \ \ '--no-sandbox'," ~/.local/lib/python3.8/site-packages/pyppeteer/launcher.py
 
+#make some changes according to https://github.com/palmoreck/dockerfiles-for-binder/tree/cc3c524e46ba11f9dbf8895ec2c02c335579ec48#changes-for-palmoreckjupyterlab_optimizacion_2_binder_test_for_pdf300
+RUN python_version=$(ls ~/.local/lib/|grep python) && \
+    sed -i "s/self._defaultNavigationTimeout = 30000/self._defaultNavigationTimeout = 30000000000/" ~/.local/lib/$python_version/site-packages/pyppeteer/page.py
+
+
 #c kernel
 RUN sudo chmod gou+wrx -R /usr/local/share/jupyter/kernels/
 RUN python_version=$(ls ~/.local/lib/|grep python) && pip3 install --user git+https://github.com/brendan-rius/jupyter-c-kernel.git && python3 ~/.local/lib/$python_version/site-packages/jupyter_c_kernel/install_c_kernel --prefix=/usr/local/
