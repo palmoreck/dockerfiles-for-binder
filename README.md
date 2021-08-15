@@ -5,13 +5,13 @@ JUPYTERLAB_VERSION=3.1.0
 REPO_URL=palmoreck/jupyterlab_jupyter_book
 DIR=/home/<user>/<midir>/
 BUILD_DIR=$DIR/3.0.0/
-CONTAINER_NAME=jupyterlab-optimizacion-2-binder
+CONTAINER_NAME=jupyterlab-jupyter-book
 ```
 
 Clone:
 
 ```
-git clone --single-branch -b jupyterlab_optimizacion_2_binder_test https://github.com/palmoreck/dockerfiles-for-binder.git $DIR
+git clone --single-branch -b jupyterlab_jupyter_book https://github.com/palmoreck/dockerfiles-for-binder.git $DIR
 ```
 
 Build:
