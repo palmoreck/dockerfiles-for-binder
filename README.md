@@ -136,3 +136,21 @@ gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dDownsampleColorImages=true -dCol
 
 according to: [how-can-i-reduce-the-file-size-of-a-scanned-pdf-file](https://askubuntu.com/questions/113544/how-can-i-reduce-the-file-size-of-a-scanned-pdf-file)
 
+
+# update 15-08-2021
+
+For optimization book i used `palmoreck/jupyterlab_optimizacion_binder_test_for_pdf:2.1.4` then installed on it:
+
+```
+pip install networkx
+
+#uninstall jupyter-book
+
+pip uninstall jupyter-book
+
+#then install:
+
+pip install jupyter-book==0.10.2
+```
+
+and tag `palmoreck/jupyterlab_optimizacion_binder_for_opt_book_test:2.1.4`
