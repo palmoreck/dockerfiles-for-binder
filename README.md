@@ -148,7 +148,7 @@ pip install networkx
 
 pip uninstall jupyter-book
 
-#then install:
+#then install (see https://github.com/executablebooks/jupyter-book/issues/1318#issuecomment-836247644)
 
 pip install jupyter-book==0.10.2
 ```
