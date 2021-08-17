@@ -1,7 +1,7 @@
 #!/bin/bash
 
-bash build_chapter1.sh
-bash build_chapter2.sh
-bash build_chapter3.sh
-bash build_chapter4.sh
-bash build_chapter5.sh
+bash build_chapter.sh 1
+bash build_chapter.sh 2
+bash build_chapter.sh 3
+bash build_chapter.sh 4
+bash build_chapter.sh 5
