@@ -1,9 +1,10 @@
 Instructions to build docker image. Set:
 
 ```
-JUPYTERLAB_VERSION=1.1.0
+JUPYTERLAB_VERSION=3.1.0
 REPO_URL=palmoreck/jupyterlab_r_kernel_tidyverse_binder
-BUILD_DIR=/home/user/midir
+DIR=/home/<user>/<midir>/dockerfiles/ #path where this git repository is cloned, example: /home/user/dockerfiles
+BUILD_DIR=$DIR/$JUPYTERLAB_VERSION
 CONTAINER_NAME=jupyterlab-r-kernel-tidyverse-local
 ```
 
@@ -48,5 +49,3 @@ Delete (if `--rm` wasn't used):
 ```
 docker rm ${CONTAINER_NAME}
 ```
-
-
