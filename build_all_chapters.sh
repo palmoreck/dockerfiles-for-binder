@@ -1,7 +1,7 @@
 #!/bin/bash
 
-bash build_chapter.sh 1
-bash build_chapter.sh 2
-bash build_chapter.sh 3
-bash build_chapter.sh 4
-bash build_chapter.sh 5
+#first argument have number of chapters that we will like to build
+
+number_of_chapters=$(find analisis-numerico-computo-cientifico/libro_optimizacion/temas/ -maxdepth 1 -name "[1-$1]*.*"|wc -l)
+
+for((i = 1; i <= $number_of_chapters; i++));do bash build_chapter.sh $i;done
