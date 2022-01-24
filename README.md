@@ -4,7 +4,7 @@ Instructions to build docker image. Set:
 JUPYTERLAB_VERSION=3.2.8
 REPO_URL=palmoreck/jupyterlab_optimizacion_2_binder_test
 DIR=/home/<user>/<midir>/
-BUILD_DIR=$DIR/3.1.0/
+BUILD_DIR=$DIR/3.2.8/
 CONTAINER_NAME=jupyterlab-optimizacion-2-binder
 ```
 
