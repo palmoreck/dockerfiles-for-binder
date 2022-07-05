@@ -7,12 +7,12 @@ ENV LC_ALL C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEB_BUILD_DEPS="gfortran python3-dev python3-pip python3-setuptools software-properties-common dirmngr"
 ENV DEB_PACKAGES="sudo nano less git nodejs curl wget htop libblas-dev liblapack-dev"
-ENV PIP_PACKAGES="numpy scipy matplotlib pandas seaborn plotly sympy"
+ENV PIP_PACKAGES="numpy scipy matplotlib pandas seaborn plotly sympy pyppeteer"
 
 ENV R_KEY="E298A3A825C0D65DFD57CBB651716619E084DAB9"
 ENV R_DEB_BUILD_DEPS="r-base libssl-dev libxml2-dev libcurl4-openssl-dev"
 ENV R_SITE_LIBRARY="/usr/local/lib/R/site-library"
-ENV R_PACKAGES="var=\"repr IRdisplay evaluate crayon pbdZMQ devtools uuid digest prob tidyverse\""
+ENV R_PACKAGES="var=\"repr IRdisplay evaluate crayon pbdZMQ devtools uuid digest gss fBasics combinat tidyverse\""
 
 ENV USER_BINDER jovyan
 
@@ -62,9 +62,12 @@ RUN sudo chmod gou+wrx -R /usr/local/share/jupyter/kernels/
 RUN python_version=$(ls ~/.local/lib/|grep python) && pip3 install --user git+https://github.com/brendan-rius/jupyter-c-kernel.git && python3 ~/.local/lib/$python_version/site-packages/jupyter_c_kernel/install_c_kernel --prefix=/usr/local/
 
 #r kernel
+#for prob fAsianOptions, gss, fBasics combinat are needed
 RUN echo $R_PACKAGES >  ~/.Renviron && \
     sudo chmod gou+w $R_SITE_LIBRARY && \
     R -e 'install.packages(strsplit(system("echo $var", intern=TRUE)," ")[[1]], lib="/usr/local/lib/R/site-library/")' && \
+    R -e 'install.packages("fAsianOptions", repos="http://R-Forge.R-project.org", lib="/usr/local/lib/R/site-library/")' && \
+    R -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/prob/prob_1.0-1.tar.gz", repo=NULL, type="source", lib="/usr/local/lib/R/site-library/")' && \
     R -e 'devtools::install_github("IRkernel/IRkernel")' && \
     sudo R -e 'IRkernel::installspec(user=FALSE)'
 
