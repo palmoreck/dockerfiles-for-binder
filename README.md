@@ -1,4 +1,6 @@
-Instructions to build docker image. Set:
+Instructions to build docker image. 
+
+Set:
 
 ```
 JUPYTERLAB_VERSION=3.4.3
