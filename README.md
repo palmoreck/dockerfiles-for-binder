@@ -1,10 +1,22 @@
-Instructions to build docker image. 
+Instructions to build docker image.
+
+Version `palmoreck/jupyterlab_prope_r_kernel_tidyverse_binder_test_4:3.4.3` was built from `palmoreck/jupyterlab_prope_r_kernel_tidyverse_binder_test:3.4.3` using `exec` in container, installing:
+
+```
+install.packages(c("gss", "fBasics", "combinat"), lib="/usr/local/lib/R/site-library/")
+
+install.packages("fAsianOptions", repos="http://R-Forge.R-project.org",lib="/usr/local/lib/R/site-library/")
+
+install.packages("https://cran.r-project.org/src/contrib/Archive/prob/prob_1.0-1.tar.gz", repo=NULL, type="source",lib="/usr/local/lib/R/site-library/")
+```
+
+and then `docker commit`. Possibly if `pyppeteer` is installed before jupyterlab this will solve issue [#6](https://github.com/palmoreck/dockerfiles-for-binder/issues/6)
 
 Set:
 
 ```
 JUPYTERLAB_VERSION=3.4.3
-REPO_URL=palmoreck/jupyterlab_prope_r_kernel_tidyverse_binder_test_3
+REPO_URL=palmoreck/jupyterlab_prope_r_kernel_tidyverse_binder_test_4
 DIR=/home/<user>/<midir>/
 BUILD_DIR=$DIR/3.4.3/
 CONTAINER_NAME=jupyterlab-prope-r-kernel-tidyverse
