@@ -1,4 +1,4 @@
-FROM palmoreck/jupyterlab_optimizacion_2_binder_test:3.4.4
+FROM palmoreck/jupyterlab_optimizacion_2_binder_test:3.4.3
 ARG NB_USER=jovyan
 ARG NB_UID=1000
 ENV USER ${NB_USER}
